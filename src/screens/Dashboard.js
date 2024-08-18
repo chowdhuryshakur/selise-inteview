@@ -53,6 +53,9 @@ function Dashboard() {
           </ul>
         );
       };
+      const onPanelChange = (newValue) => {
+        setCurrentDate(newValue);
+      };
     return (
         <div className='container'>
                 <div className='d-flex mt-5 justify-content-between'>
@@ -64,6 +67,7 @@ function Dashboard() {
                         <Calendar 
                             // value={routeDate}
                             value={currentDate} 
+                            onPanelChange={onPanelChange}
                             cellRender={dateCellRender}
                         />
                     </div>
