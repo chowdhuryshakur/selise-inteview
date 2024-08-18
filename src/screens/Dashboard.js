@@ -55,15 +55,18 @@ function Dashboard() {
       };
     return (
         <div className='container'>
-                <div className='d-flex mt-5 justify-content-end'>
+                <div className='d-flex mt-5 justify-content-between'>
+                    <h3 className='card-title'>Appointment Calendar</h3>
                     <button class="btn btn-outline-primary" onClick={() => navigate('/createAppointment')}> <CgMathPlus/> Create New Appointment</button>
                 </div>
-                <div className='mt-4'>
-                    <Calendar 
-                        // value={routeDate}
-                        value={currentDate} 
-                        cellRender={dateCellRender}
-                    />
+                <div className='mt-4 card'>
+                    <div className='card-body'> 
+                        <Calendar 
+                            // value={routeDate}
+                            value={currentDate} 
+                            cellRender={dateCellRender}
+                        />
+                    </div>
                     {selectedEvent && (
                         <Modal title="Appointment Details" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                         <p><strong>Name:</strong> {selectedEvent.name}</p>
