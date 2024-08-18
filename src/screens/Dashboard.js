@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { CgMathPlus, CgPlug } from 'react-icons/cg';
+import { CgMathPlus } from 'react-icons/cg';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Calendar, Badge, Modal } from 'antd';
 
@@ -20,8 +20,8 @@ function Dashboard() {
 
     useEffect(() => {
         if (year && month) {
-            setCurrentDate(moment(`${year}-${month}`, 'YYYY-MM'))
-            console.log(moment(`${year}-${month}`, 'YYYY-MM'))
+            setCurrentDate(moment(`${year}-${month}-1`, 'YYYY-MM-DD'))
+            console.log(moment(`${year}-${month-1}`, 'YYYY-MM'))
         }
     }, [year, month])
 
@@ -36,10 +36,6 @@ function Dashboard() {
     
       const handleCancel = () => {
         setIsModalVisible(false);
-      };
-
-    const onPanelChange = (value, mode) => {
-        console.log(value.format('YYYY-MM-DD'), mode);
       };
 
       const dateCellRender = (value) => {
