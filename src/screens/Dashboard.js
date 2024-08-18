@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { CgMathPlus } from 'react-icons/cg';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Calendar, Badge, Modal } from 'antd';
+import dayjs from 'dayjs';
 
 function Dashboard() {
     const { year, month } = useParams();
@@ -11,7 +12,7 @@ function Dashboard() {
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [appointments, setAppointments] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [currentDate, setCurrentDate] = useState(moment());
+    const [currentDate, setCurrentDate] = useState(dayjs());
 
     useEffect(() => {
         setAppointments(JSON.parse(localStorage.getItem('appointments')))
@@ -20,8 +21,8 @@ function Dashboard() {
 
     useEffect(() => {
         if (year && month) {
-            setCurrentDate(moment(`${year}-${month}-1`, 'YYYY-MM-DD'))
-            console.log(moment(`${year}-${month-1}`, 'YYYY-MM'))
+            setCurrentDate(dayjs(`${year}-${month}-01`))
+            console.log(dayjs(`${year}-${month}-01`))
         }
     }, [year, month])
 
@@ -40,11 +41,11 @@ function Dashboard() {
 
       const dateCellRender = (value) => {
         const currentDate = value.format('YYYY-MM-DD');
-        const listData = appointments.filter(appointment => appointment.appointmentDateTime.split('T')[0] === currentDate).sort((a, b) => new Date(b.appointmentDateTime) - new Date(a.appointmentDateTime))
+        const listData = appointments?.filter(appointment => appointment.appointmentDateTime.split('T')[0] === currentDate).sort((a, b) => new Date(b.appointmentDateTime) - new Date(a.appointmentDateTime))
         
         return (
           <ul className="list-group">
-            {listData.map((item, index) => (
+            {listData?.map((item, index) => (
               <li key={index} className="list-group-item" onClick={() => showModal(item)}>
                 <Badge status="success" text={`${item.name} - ${moment(item.appointmentDateTime).format('HH:mm')}`} />
               </li>
@@ -60,7 +61,7 @@ function Dashboard() {
                 <div className='mt-4'>
                     <Calendar 
                         // value={routeDate}
-                        defaultValue={currentDate} 
+                        value={currentDate} 
                         cellRender={dateCellRender}
                     />
                     {selectedEvent && (
